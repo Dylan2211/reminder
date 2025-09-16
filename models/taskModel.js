@@ -4,7 +4,6 @@ const dbConfig = require("../dbConfig");
 async function createTask(task) {
   const { title, description, dueDate, imageUrl, isDone } = task;
 
-  const pool = await sql.connect(dbConfig);
   const result = await pool
     .request()
     .input("title", sql.NVarChar, title)
@@ -21,7 +20,6 @@ async function createTask(task) {
 async function createSubtask(taskId, subtask) {
   const { title, isDone } = subtask;
 
-  const pool = await sql.connect(dbConfig);
   const result = await pool
     .request()
     .input("taskId", sql.Int, taskId)

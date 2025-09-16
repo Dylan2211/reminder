@@ -1,3 +1,5 @@
+console.log("require type:", typeof require);
+
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -14,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 const taskRoutes = require("./routes/taskRoutes");
+app.use("/api/tasks", taskRoutes);
 
 app.use((req, res, next) => {
   res.status(404).json({ message: "Route not found" });

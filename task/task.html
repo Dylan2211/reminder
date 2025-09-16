@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Task Management</title>
+    <link rel="stylesheet" href="task.css" />
+  </head>
+  <body>
+    <form id="taskForm">
+      <input type="text" id="title" placeholder="Task Title" required />
+      <input type="date" id="dueDate" required />
+      <textarea id="description" placeholder="Optional Description"></textarea>
+      <input type="file" id="image" />
+      <button type="submit">Add Task</button>
+    </form>
+    <div id="taskList"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
