@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Draggable Task Example</title>
+    <style>
+      #taskList {
+        width: 100%;
+        height: 200px;
+        position: relative;
+        background: #f0f0f0;
+        padding: 20px;
+      }
+      .task {
+        width: 120px;
+        height: 80px;
+        background: lightblue;
+        border-radius: 8px;
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        user-select: none;
+        transition: transform 0.1s;
+      }
+      .task:active {
+        cursor: grabbing;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="taskList">
+      <div class="task" id="task1">Task 1</div>
+    </div>
+
+    <script>
+      const task = document.getElementById("task1");
+      let isDragging = false;
+      let startX;
+      let startLeft;
+
+      task.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        // get current position of the element
+        startLeft = parseInt(window.getComputedStyle(task).left, 10);
+        task.style.transition = "none"; // disable smooth transition while dragging
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX; // movement distance
+        task.style.left = startLeft + dx + "px"; // move horizontally
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (isDragging) {
+          isDragging = false;
+          task.style.transition = "transform 0.1s"; // re-enable transition
+        }
+      });
+    </script>
+  </body>
+</html>

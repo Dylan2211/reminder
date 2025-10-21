@@ -1,0 +1,108 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #464646;
+  padding: 40px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* #region Form input */
+form {
+  /* background-color: grey; */
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  /* display:flex;
+  justify-content: center; */
+}
+
+input::placeholder,
+textarea::placeholder,
+#dueDate,
+.file-label {
+  color: white;
+  opacity: 0.8;
+}
+
+.file-label,
+input,
+textarea,
+button {
+  background-color: rgba(175, 175, 175, 0.1);
+  font-size: 16px;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+#image {
+  display: none;
+}
+/* Add Task Button styling */
+button {
+  background-color: #0078ff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #005fd1;
+}
+/* #endregion */
+
+/* #region Task list section */
+#taskList {
+  background-color: blue;
+  width: 100vw;
+  margin-top: 0;
+}
+
+.task {
+  min-width: 300px;
+  height: 150px;
+  background-color: rgb(73, 73, 73);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+}
+
+.task:active {
+  cursor: grabbing;
+}
+
+.task h3 {
+  margin: 0;
+  color: #333;
+}
+
+.task p {
+  color: #666;
+  margin: 5px 0;
+}
+
+.task small {
+  color: #999;
+  display: block;
+  margin-top: 8px;
+}
+/* #endregion */
