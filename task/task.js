@@ -33,37 +33,37 @@ async function loadTasks() {
       let startX;
       let startY;
       let startLeft;
-      const task_object = document.createElement("task");
-      task_object.style.top = `${400 + index * 220}px`;
+      const taskElement = document.createElement("task");
+      taskElement.style.top = `${400 + index * 220}px`;
       index++;
-      task_object.className = "task";
-      task_object.innerHTML = `
+      taskElement.className = "task";
+      taskElement.innerHTML = `
         <h3>${task.Title}</h3>
         <p>${task.Description}</p>
         `;
-      task_object.style.backgroundImage = task.ImageUrl;
+      taskElement.style.backgroundImage = task.ImageUrl;
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = task.IsDone;
       checkbox.classList.add("task-checkbox");
-      task_object.appendChild(checkbox);
+      taskElement.appendChild(checkbox);
 
-      taskList.appendChild(task_object);
-      task_object.addEventListener("mousedown", (e) => {
+      taskList.appendChild(taskElement);
+      taskElement.addEventListener("mousedown", (e) => {
         isDragging = true;
         startX = e.clientX;
-        startLeft = parseInt(window.getComputedStyle(task_object).left, 10);
-        task_object.style.transition = "none";
+        startLeft = parseInt(window.getComputedStyle(taskElement).left, 10);
+        taskElement.style.transition = "none";
       });
       document.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
         const dx = e.clientX - startX;
-        task_object.style.left = startLeft + dx + "px";
+        taskElement.style.left = startLeft + dx + "px";
       });
       document.addEventListener("mouseup", () => {
         if (isDragging) {
           isDragging = false;
-          task_object.style.transition = "transform 0.1s";
+          taskElement.style.transition = "transform 0.1s";
         }
       });
     });
