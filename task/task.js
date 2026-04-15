@@ -23,7 +23,7 @@ document.getElementById("taskForm").addEventListener("submit", async (e) => {
 
 async function loadTasks() {
   try {
-    const res = await fetch("/api/tasks?isDone=0&sort=asc");
+    const res = await fetch("/api/tasks?isDone=0");
     const tasks = await res.json();
     const taskList = document.getElementById("taskList");
     taskList.innerHTML = "";
@@ -33,42 +33,37 @@ async function loadTasks() {
       let startX;
       let startY;
       let startLeft;
-      const task = document.createElement("task");
-      task.style.top = `${400 + index * 220}px`;
+      const task_object = document.createElement("task");
+      task_object.style.top = `${400 + index * 220}px`;
       index++;
-      task.className = "task";
-      task.innerHTML = `
+      task_object.className = "task";
+      task_object.innerHTML = `
         <h3>${task.Title}</h3>
         <p>${task.Description}</p>
-        ${
-          task.ImageUrl
-            ? `<img src="${task.ImageUrl}" alt="Task Image" width="100"/>`
-            : ""
-        }
         `;
-
+      task_object.style.backgroundImage = task.ImageUrl;
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = task.IsDone;
       checkbox.classList.add("task-checkbox");
-      task.appendChild(checkbox);
+      task_object.appendChild(checkbox);
 
-      taskList.appendChild(task);
-      task.addEventListener("mousedown", (e) => {
+      taskList.appendChild(task_object);
+      task_object.addEventListener("mousedown", (e) => {
         isDragging = true;
         startX = e.clientX;
-        startLeft = parseInt(window.getComputedStyle(task).left, 10);
-        task.style.transition = "none";
+        startLeft = parseInt(window.getComputedStyle(task_object).left, 10);
+        task_object.style.transition = "none";
       });
       document.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
         const dx = e.clientX - startX;
-        task.style.left = startLeft + dx + "px";
+        task_object.style.left = startLeft + dx + "px";
       });
       document.addEventListener("mouseup", () => {
         if (isDragging) {
           isDragging = false;
-          task.style.transition = "transform 0.1s";
+          task_object.style.transition = "transform 0.1s";
         }
       });
     });
