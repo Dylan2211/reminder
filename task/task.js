@@ -5,7 +5,6 @@ document.getElementById("taskForm").addEventListener("submit", async (e) => {
 
   const formData = new FormData();
   formData.append("title", document.getElementById("title").value);
-  formData.append("dueDate", document.getElementById("dueDate").value);
   formData.append("description", document.getElementById("description").value);
   formData.append("image", document.getElementById("image").files[0]);
 
@@ -41,7 +40,6 @@ async function loadTasks() {
       div.innerHTML = `
         <h3>${task.Title}</h3>
         <p>${task.Description}</p>
-        <small>Due: ${new Date(task.DueDate).toLocaleDateString()}</small>
         ${
           task.ImageUrl
             ? `<img src="${task.ImageUrl}" alt="Task Image" width="100"/>`

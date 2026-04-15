@@ -5,13 +5,10 @@ async function createTask(req, res) {
     if (!req.body.title) {
       return res.json({ error: "No title!" });
     }
-    if (!req.body.dueDate) {
-      return res.json({ error: "No dueDate!" });
-    }
+
     const task = {
       title: req.body.title,
       description: req.body.description || "",
-      dueDate: req.body.dueDate,
       imageUrl: req.file ? `/images/${req.file.filename}` : null,
       isDone: req.body.isDone ? 1 : 0,
     };
@@ -49,8 +46,7 @@ async function getAllTasks(req, res) {
     if (isDone !== "1" && isDone !== "0") {
       return res.status(400).json({ message: "Invalid isDone value" });
     }
-    const sortDate = sort === "desc" ? "DESC" : "ASC";
-    const tasks = await taskModel.getAllTasks({ sortDate, isDone });
+    const tasks = await taskModel.getAllTasks({ isDone });
     res.json(tasks);
   } catch (error) {
     console.error(`Error getting tasks:${error}`);
@@ -79,7 +75,6 @@ async function updateTask(req, res) {
     const taskData = {
       title: req.body.title,
       description: req.body.description || "",
-      dueDate: req.body.dueDate,
       imageUrl: req.file ? `/images/${req.file.filename}` : null,
       isDone: req.body.isDone ? 1 : 0,
     };
