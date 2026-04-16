@@ -13,8 +13,8 @@ const storage = multer.diskStorage({
     cb(null, uniqueSuffix + path.extname(file.originalname));
   },
 });
-
 const upload = multer({ storage: storage });
+
 router.get("/", taskController.getAllTasks);
 router.post("/", upload.single("image"), taskController.createTask);
 router.get("/:id", taskController.getTaskById);

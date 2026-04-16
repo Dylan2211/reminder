@@ -42,7 +42,7 @@ async function loadTasks() {
         <p>${task.Description}</p>
         `;
       taskElement.style.backgroundImage = task.ImageUrl
-        ? `url("task.{ImageUrl}")`
+        ? `url("${task.ImageUrl}")`
         : "none";
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
