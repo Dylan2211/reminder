@@ -1,3 +1,4 @@
+initTaskDrag();
 loadTasks();
 
 document.getElementById("taskForm").addEventListener("submit", async (e) => {
@@ -20,6 +21,22 @@ document.getElementById("taskForm").addEventListener("submit", async (e) => {
     alert("Error adding task");
   }
 });
+// #region Task Loading
+function initTaskDrag() {
+  interact(".task").draggable({
+    listeners: {
+      start(event) {},
+      move(event) {
+        const target = event.target;
+        const x = (parseFloat(target.dataset.x) || 0) + event.dx;
+        const y = (parseFloat(target.dataset.y) || 0) + event.dy;
+        event.target.style.transform = `translate(${x}px, ${y}px)`;
+        target.dataset.x = x;
+        target.dataset.y = y;
+      },
+    },
+  });
+}
 
 async function loadTasks() {
   try {
@@ -29,12 +46,9 @@ async function loadTasks() {
     taskList.innerHTML = "";
     let index = 0;
     tasks.forEach((task) => {
-      let isDragging = false;
-      let startX;
-      let startY;
-      let startLeft;
+      console.log("There is a task created!");
       const taskElement = document.createElement("task");
-      taskElement.style.top = `${400 + index * 220}px`;
+      // taskElement.style.top = `${400 + index * 220}px`;
       index++;
       taskElement.className = "task";
       taskElement.innerHTML = `
@@ -51,25 +65,10 @@ async function loadTasks() {
       taskElement.appendChild(checkbox);
 
       taskList.appendChild(taskElement);
-      taskElement.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        startLeft = parseInt(window.getComputedStyle(taskElement).left, 10);
-        taskElement.style.transition = "none";
-      });
-      document.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-        const dx = e.clientX - startX;
-        taskElement.style.left = startLeft + dx + "px";
-      });
-      document.addEventListener("mouseup", () => {
-        if (isDragging) {
-          isDragging = false;
-          taskElement.style.transition = "transform 0.1s";
-        }
-      });
     });
   } catch (error) {
     console.error("Error loading tasks:", error);
   }
 }
+
+// #endregion
