@@ -55,9 +55,6 @@ async function loadTasks() {
         <h3>${task.Title}</h3>
         <p>${task.Description}</p>
         `;
-      taskElement.style.backgroundImage = task.ImageUrl
-        ? `url("${task.ImageUrl}")`
-        : "none";
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = task.IsDone;
@@ -70,5 +67,7 @@ async function loadTasks() {
     console.error("Error loading tasks:", error);
   }
 }
+
+function onTaskClick(taskId) {}
 
 // #endregion

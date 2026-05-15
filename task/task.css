@@ -1,6 +1,8 @@
 body {
   font-family: "Segoe UI", sans-serif;
   background-color: #1b1b1b;
+  background-size: cover;
+  background-position: top;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -81,7 +83,7 @@ button:hover {
 #taskList {
   flex: 1;
   position: relative;
-  background-color: blue;
+  /* background-color: blue; */
   width: 100%;
   margin-top: 0;
   overflow-y: auto;
@@ -101,7 +103,7 @@ button:hover {
   user-select: none;
   background-size: cover;
   background-position: center;
-  /* Gets the background-image from task.js */
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .task:active {
@@ -110,11 +112,11 @@ button:hover {
 
 .task h3 {
   margin: 0;
-  color: #333;
+  color: #fff;
 }
 
 .task p {
-  color: #666;
+  color: #fff;
   margin: 5px 0;
 }
 
