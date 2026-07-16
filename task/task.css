@@ -75,7 +75,7 @@ button:hover {
 
 /* #region Task list section */
 #taskFormContainer {
-  z-index: -999;
+  z-index: 0;
   display: flex;
   position: fixed;
   width: 100dvw;
@@ -85,13 +85,15 @@ button:hover {
 }
 
 #taskForm {
+  z-index: 2;
   width: min(calc(40dvw + 15px + 3.5rem), 60dvw);
   background-color: rgba(9, 30, 86, 0);
-  border-right: solid calc(0.1vw + 1px) rgba(139, 129, 228, 0.2);
-  border-bottom: solid calc(0.2vw + 1px) rgba(139, 129, 228, 0.2);
+  border-right: solid calc(0.1vw + 1px) rgba(239, 239, 239, 0.2);
+  border-bottom: solid calc(0.2vw + 1px) rgba(239, 239, 239, 0.2);
 }
 
 #taskList {
+  pointer-events: none;
   z-index: 1;
   flex: 1;
   position: relative;
@@ -103,6 +105,7 @@ button:hover {
 }
 
 .task {
+  pointer-events: auto;
   min-width: 300px;
   height: 150px;
   border-radius: 10px;
