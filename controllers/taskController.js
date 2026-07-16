@@ -9,7 +9,6 @@ async function createTask(req, res) {
     const task = {
       title: req.body.title,
       description: req.body.description || "",
-      imageUrl: req.file ? `/images/${req.file.filename}` : null,
       isDone: req.body.isDone ? 1 : 0,
     };
     const taskId = await taskModel.createTask(task);
@@ -75,8 +74,9 @@ async function updateTask(req, res) {
     const taskData = {
       title: req.body.title,
       description: req.body.description || "",
-      imageUrl: req.file ? `/images/${req.file.filename}` : null,
       isDone: req.body.isDone ? 1 : 0,
+      xCoordinate: req.body.xCoordinate || 0,
+      yCoordinate: req.body.yCoordinate || 0,
     };
 
     const { updated } = await taskModel.updateTask({ taskId, taskData });

@@ -3,17 +3,16 @@ const sql = require("mssql");
 
 async function createTask(task) {
   try {
-    const { title, description, imageUrl, isDone } = task;
+    const { title, description, isDone } = task;
     const pool = await dbConfig;
     const result = await pool
       .request()
       .input("title", sql.NVarChar, title)
       .input("description", sql.NVarChar, description)
-      .input("imageUrl", sql.NVarChar, imageUrl)
       .input("isDone", sql.Bit, isDone)
-      .query(`INSERT INTO Tasks (Title, Description, ImageUrl, IsDone)
+      .query(`INSERT INTO Tasks (Title, Description, IsDone)
             OUTPUT INSERTED.TaskId AS TaskId
-            VALUES (@title, @description, @imageUrl, @isDone)`);
+            VALUES (@title, @description, @isDone)`);
 
     return result.recordset[0].TaskId;
   } catch (error) {
@@ -41,14 +40,15 @@ async function createSubtask({ taskId, subtask }) {
     throw new Error("Database query failed");
   }
 }
+
 async function getAllTasks({ isDone }) {
   try {
     const pool = await dbConfig;
     let query = `SELECT * FROM Tasks WHERE 1 = 1`;
     const request = pool.request();
-    if (isDone == "true" || isDone == "false") {
+    if (isDone === "1" || isDone === "0") {
       query += " AND IsDone = @isDone";
-      request.input("isDone", sql.Bit, isDone);
+      request.input("isDone", sql.Bit, Number(isDone));
     }
     const result = await request.query(query);
     return result.recordset;
@@ -74,18 +74,19 @@ async function getTaskById(taskId) {
 
 async function updateTask({ taskId, taskData }) {
   try {
-    const { title, description, imageUrl, isDone } = taskData;
+    const { title, description, isDone } = taskData;
     const pool = await dbConfig;
     const result = await pool
       .request()
       .input("title", sql.NVarChar, title)
       .input("description", sql.NVarChar, description)
-      .input("imageUrl", sql.NVarChar, imageUrl)
       .input("isDone", sql.Bit, isDone)
       .input("taskId", sql.Int, taskId)
+      .input("xCoordinate", sql.Int, taskData.xCoordinate || 0)
+      .input("yCoordinate", sql.Int, taskData.yCoordinate || 0)
       .query(
         `UPDATE Tasks 
-        SET Title = @title, Description = @description, ImageUrl = @imageUrl, isDone = @isDone 
+        SET Title = @title, Description = @description, isDone = @isDone , xCoordinate = @xCoordinate, yCoordinate = @yCoordinate
         WHERE TaskId = @taskId`,
       );
 

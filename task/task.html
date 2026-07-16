@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="icon" href="/images/favicon.ico" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Management</title>
@@ -8,15 +9,17 @@
   </head>
   <body>
     <main>
+      <div id="taskFormContainer">
+        <form id="taskForm">
+          <input type="text" id="title" placeholder="Task Title" required />
+          <textarea
+            id="description"
+            placeholder="Optional Description"
+          ></textarea>
+          <button type="submit">Add Task</button>
+        </form>
+      </div>
       <div id="taskList"></div>
-      <form id="taskForm">
-        <input type="text" id="title" placeholder="Task Title" required />
-        <textarea
-          id="description"
-          placeholder="Optional Description"
-        ></textarea>
-        <button type="submit">Add Task</button>
-      </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="task.js"></script>
